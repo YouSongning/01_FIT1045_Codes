@@ -2,8 +2,7 @@
 
 
 
-
-// print_repeated procedure
+// print_repeated() procedure
 void print_repeated(string text, int times, bool with_newline)
 {
     int i = 0;
@@ -20,7 +19,8 @@ void print_repeated(string text, int times, bool with_newline)
 }
 
 
-// draw_heading_line procedure
+
+// draw_heading_line() procedure
 void draw_heading_line(int length)
 {
     write("+");
@@ -29,7 +29,8 @@ void draw_heading_line(int length)
 }
 
 
-// draw_title procedure
+
+// draw_title() procedure
 void draw_title(string text, int length)
 {
     draw_heading_line(length);
@@ -46,8 +47,7 @@ void draw_title(string text, int length)
 
 
 
-
-// read_string function
+// read_string() function
 string read_string(string prompt)
 {
     write(prompt);
@@ -56,8 +56,7 @@ string read_string(string prompt)
 
 
 
-
-// read_integer function
+// read_integer() function
 int read_integer(string prompt)
 {
     string input = read_string(prompt);
@@ -71,12 +70,7 @@ int read_integer(string prompt)
 
 
 
-
-
-
-
-
-// read_integer_range function
+// read_integer_range() function
 int read_integer_range(string prompt, int low, int high)
 {
     // if low > high， swap
@@ -118,7 +112,7 @@ int read_integer_range(string prompt, int low, int high)
 
 
 
-// get_main_menu() procedure
+// display_main_menu() procedure
 void display_main_menu()
     {
         draw_title("Main Menu", 26);
@@ -128,12 +122,8 @@ void display_main_menu()
     }
 
 
-  
-
-
-
-
-//record_menu procedure
+    
+// interact_menu() procedure
 void interact_menu(string name, int& goal, int& behind, int& score)
     {
 
