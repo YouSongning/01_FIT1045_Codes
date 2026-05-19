@@ -14,4 +14,3 @@ double read_double(string prompt);
 double read_double_range(string prompt, double low, double high);
 
 bool read_boolean(string prompt);
-

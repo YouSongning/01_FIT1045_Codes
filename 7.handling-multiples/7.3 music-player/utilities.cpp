@@ -1,21 +1,5 @@
 #include "splashkit.h"
 
-// print_repeated() procedure
-void print_repeated(string text, int times, bool with_newline)
-{
-    int i = 0;
-    while (i < times)
-    {
-        write(text);
-        i++;
-    }
-
-    if (with_newline)
-    {
-        write_line("\n");
-    }
-}
-
 // read_string() function
 string read_string(string prompt)
 {

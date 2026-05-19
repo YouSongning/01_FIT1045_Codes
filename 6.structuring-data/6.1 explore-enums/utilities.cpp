@@ -1,31 +1,53 @@
 #include "splashkit.h"
 
-/*
-@param guess_number the sequence number of the guess, this should start at 1
-@param target the number the user is aiming to guess
-
-@return true if the user guesses the number, otherwise false.
-*/
 
 
-
-
-// print_line procedure
-void print_line(int length)
+// print_repeated() procedure
+void print_repeated(string text, int times, bool with_newline)
 {
     int i = 0;
-
-    while (i < length)
+    while (i < times)
     {
-        write("-");
+        write(text);
         i++;
     }
 
-    write_line("\n");
+    if(with_newline)
+    {
+        write_line("\n");
+    }
 }
 
 
-// read_string function
+
+// draw_heading_line() procedure
+void draw_heading_line(int length)
+{
+    write("+");
+    print_repeated("-", length-2, 0);
+    write("+");
+}
+
+
+
+// draw_title() procedure
+void draw_title(string text, int length)
+{
+    draw_heading_line(length);
+    write_line();
+
+    write("| "+ text);
+    print_repeated(" ", length-4-length_of(text), 0);
+    write_line (" |");
+
+    draw_heading_line(length);
+    write_line();
+
+}
+
+
+
+// read_string() function
 string read_string(string prompt)
 {
     write(prompt);
@@ -33,7 +55,8 @@ string read_string(string prompt)
 }
 
 
-// read_integer function
+
+// read_integer() function
 int read_integer(string prompt)
 {
     string input = read_string(prompt);
@@ -46,7 +69,8 @@ int read_integer(string prompt)
 }
 
 
-// read_integer_range function
+
+// read_integer_range() function
 int read_integer_range(string prompt, int low, int high)
 {
     // if low > high， swap
@@ -87,7 +111,7 @@ int read_integer_range(string prompt, int low, int high)
 }
 
 
-// read_boolean function
+
 bool read_boolean(string prompt)
 {
     string input = read_string(prompt);
@@ -97,27 +121,12 @@ bool read_boolean(string prompt)
         input != "n" && input != "N"
     )
     {
-        write_line("Please enter Y or N.");
+        write_line("Please enter y or n.");
         input = read_string(prompt);
     }
 
-    return input == "y" || input == "Y";
+    return (input == "y" || input == "Y");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
