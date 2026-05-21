@@ -93,6 +93,8 @@ void print_product(const product_data &product)
     write_line("Stock: " + to_string(product.stock));
 }
 
+
+
 // add_product() function here
 /**
 * Read in a product from the user, and add it to the store.
@@ -125,6 +127,8 @@ void list_products(const store_data &store)
     write_line("There are a total of " + to_string(length(store.products)) + " products.");
 }
 
+
+
 // find_product() function here
 /**
 * Utility function for searching the store and selecting an index.
@@ -145,9 +149,11 @@ int find_product(const store_data &store)
 
     for (int i = 0; i < length(store.products); i++)
     {
+        dynamic_array<int> matches;
         if (contains(store.products[i].name, search_text))
         {
-            write_line(to_string(i + 1) + ". " + store.products[i].name);
+            add(matches, i);
+            write_line(to_string(length(matches)) + ". " + store.products[i].name);
             found_product = true;
         }
     }
@@ -188,17 +194,17 @@ void sell_product(store_data &store)
         return;
     }
 
-    int units = read_integer_range("Enter number of units sold: ", 0, store.products[index].stock);
+    int sold_units = read_integer_range("Enter number of units sold: ", 0, store.products[index].stock);
 
-    double sale_total = store.products[index].sale_price * units;
-    double cost_total = store.products[index].cost_price * units;
+    double sale_total = store.products[index].sale_price * sold_units;
+    double cost_total = store.products[index].cost_price * sold_units;
     double profit_total = sale_total - cost_total;
 
-    store.products[index].stock -= units;
+    store.products[index].stock -= sold_units;
     store.total_sales += sale_total;
     store.total_profits += profit_total;
 
-    write_line("Sold " + to_string(units) + " units");
+    write_line("Sold " + to_string(sold_units) + " units");
     write_line("Revenue: $" + to_string(sale_total, 2) + ", Profit: $" + to_string(profit_total, 2));
 }
 
@@ -223,51 +229,7 @@ void delete_product(store_data &store)
     write_line("Deleted '" + name + "'");
 }
 
-// print_menu() function here
-/**
- * Print the main menu options
- */
-void print_main_menu()
-{
-    write_line("Main Menu");
-    write_line("1. Add a new product");
-    write_line("2. Delete a product");
-    write_line("3. Update a product");
-    write_line("4. Sell a product");
-    write_line("5. Print status");
-    write_line("6. List products");
-    write_line("7. Quit");
-}
 
-// print_status() function here
-/**
-* Prints the store's status, including total sales,
-* profits, value of current stock, and number of low stock products.
-*
-* @param store the store_data to summarize
-*/
-void print_status(const store_data &store)
-{
-    // Calculate value of stock and number of low stock products
-    double stock_value = 0;
-    int low_stock = 0;
-
-    for (int i = 0; i < length(store.products); i++)
-    {
-        stock_value += store.products[i].cost_price * store.products[i].stock;
-
-        if (store.products[i].stock < 10)
-            low_stock++;
-    }
-
-    // Print report
-    write_line("== Store Report ==");
-    write_line("Total sales:     $"  + to_string(store.total_sales, 2));
-    write_line("Total profit:    $"  + to_string(store.total_profits, 2));
-    write_line("Products:        "   + to_string(length(store.products)));
-    write_line("Stock value:     $"  + to_string(stock_value, 2));
-    write_line("Low stock (<10): "   + to_string(low_stock));
-}
 
 // print_update_menu() function here
 /**
@@ -329,6 +291,58 @@ void update_product(store_data &store)
     } while (option != UPDATE_QUIT);
 }
 
+
+
+// print_status() function here
+/**
+* Prints the store's status, including total sales,
+* profits, value of current stock, and number of low stock products.
+*
+* @param store the store_data to summarize
+*/
+void print_status(const store_data &store)
+{
+    // Calculate value of stock and number of low stock products
+    double stock_value = 0;
+    int low_stock = 0;
+
+    for (int i = 0; i < length(store.products); i++)
+    {
+        stock_value += store.products[i].cost_price * store.products[i].stock;
+
+        if (store.products[i].stock < 10)
+            low_stock++;
+    }
+
+    // Print report
+    write_line("== Store Report ==");
+    write_line("Total sales:     $"  + to_string(store.total_sales, 2));
+    write_line("Total profit:    $"  + to_string(store.total_profits, 2));
+    write_line("Products:        "   + to_string(length(store.products)));
+    write_line("Stock value:     $"  + to_string(stock_value, 2));
+    write_line("Low stock (<10): "   + to_string(low_stock));
+}
+
+
+
+// print_menu() function here
+/**
+ * Print the main menu options
+ */
+void print_main_menu()
+{
+    write_line("Main Menu");
+    write_line("1. Add a new product");
+    write_line("2. Delete a product");
+    write_line("3. Update a product");
+    write_line("4. Sell a product");
+    write_line("5. Print status");
+    write_line("6. List products");
+    write_line("7. Quit");
+}
+
+
+
 int main()
 {
     store_data store = {};
@@ -349,13 +363,13 @@ int main()
                 delete_product(store);
                 break;
             case UPDATE_PRODUCT:
-                // To implement
+                update_product(store);
                 break;
             case SELL_PRODUCT:
                 sell_product(store);
                 break;
             case PRINT_STATUS:
-                // To implement
+                print_status(store);
                 break;
             case LIST_PRODUCTS:
                 list_products(store);

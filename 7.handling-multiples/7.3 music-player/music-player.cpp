@@ -19,8 +19,35 @@ struct music_player_data
     bool paused;
 };
 
+
 // Functions:
-// read_song()function here
+// print_song() function here
+/**
+ * Print details of a song
+ *
+ * @param song the song to print
+ */
+void print_song(const song_data &song)
+{
+    write_line("Name: " + song.name);
+    write_line("ID: " + song.id);
+    write_line("Path: " + song.path);
+
+    if (song.loved)
+    {
+        write_line("Loved: Yes");
+    }
+    else
+    {
+        write_line("Loved: No");
+    }
+
+    write_line("Times Played: " + to_string(song.times_played));
+}
+
+
+
+// read_song() function here
 /**
  * Read song details from the user
  *
@@ -45,30 +72,6 @@ song_data read_song(music_player_data &player)
     player.next_id++;
 
     return result;
-}
-
-// print_song() function here
-/**
- * Print details of a song
- *
- * @param song the song to print
- */
-void print_song(const song_data &song)
-{
-    write_line("Name: " + song.name);
-    write_line("ID: " + song.id);
-    write_line("Path: " + song.path);
-
-    if (song.loved)
-    {
-        write_line("Loved: Yes");
-    }
-    else
-    {
-        write_line("Loved: No");
-    }
-
-    write_line("Times Played: " + to_string(song.times_played));
 }
 
 // add_song() function here
@@ -168,6 +171,8 @@ int select_song(const music_player_data &player)
     return -1;
 }
 
+
+
 // print_update_menu() procedure here
 /**
  * Print the update song menu
@@ -241,6 +246,8 @@ void update_song(music_player_data &player)
     } while (option != 5);
 }
 
+
+
 // play_song() function here
 /**
  * Play a selected song
@@ -289,6 +296,8 @@ void pause_resume_song(music_player_data &player)
     }
 }
 
+
+
 // print_status() function here
 /**
  * Print the status of the music player
@@ -321,6 +330,8 @@ void print_status(const music_player_data &player)
         "Total number of loved songs: " + to_string(total_loved));
 }
 
+
+
 // print_menu() procedure here
 void print_menu()
 {
@@ -334,6 +345,8 @@ void print_menu()
     write_line("7. Quit");
 }
 
+
+
 int main()
 {
     music_player_data player;
@@ -345,10 +358,7 @@ int main()
 
     print_menu();
 
-    option = read_integer_range(
-        "Enter option: ",
-        1,
-        7);
+    option = read_integer_range("Enter option: ", 1, 7);
 
     while (option != 7)
     {
