@@ -1,0 +1,43 @@
+Take the following class `bounded_array`, and modify it into a `dynamic_array` class that automatically expands when full.
+It should have the following behaviour:
+
+[How should it expand? e.g., Double capacity?]
+Expansion:
+The array should automatically double its capacity whenever the current capacity is reached. 
+For example, if the capacity is 10 and another element is added, 
+a new array of capacity 20 should be allocated and all existing elements copied into it.
+
+[How should it shrink? e.g., Remove? A shrink() method?]
+Shrinking:
+The array should not automatically shrink when elements are removed. 
+Removing elements should only reduce the logical size of the array. 
+This avoids unnecessary memory reallocations.
+
+[How should it handle errors, and where?]
+Error Handling:
+Methods that access elements by index, such as `get`, `remove`, and `operator[]`, should check whether the index is valid. 
+If an invalid index is supplied, an exception should be thrown with an informative error message. 
+Memory allocation failures should also result in an exception.
+
+[How should it handle construction/destruction?]
+Construction and Destruction:
+The array should allocate memory on the heap when constructed. 
+Elements should only be constructed when they are added to the array. 
+When elements are removed or when the array is destroyed, 
+the corresponding objects should be properly destroyed and all allocated memory released.
+
+[How should it handle copying/being assigned?]
+Copying and Assignment:
+The class must perform deep copying. 
+A copy constructor and copy assignment operator should allocate a new block of memory and copy all elements from the source array. 
+This prevents multiple objects from sharing the same heap memory and avoids double deletion errors.
+
+[Anything else?]
+Additional Behaviour:
+The class should store elements contiguously in memory, 
+maintain a current size and capacity, and provide efficient indexed access using `operator[]`.
+
+
+
+
+
